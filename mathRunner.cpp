@@ -211,4 +211,7 @@ void multiplication_start(char ask) {
 //choose game mode for division
 void division_start(char ask) {
 
+// cant we very easily combine this into one function or am i thinking wrong? also, not meaning for it to look as if im doing nothing, 
+// im trying to figure out how in the world to do the actual infinite running game part of this (which i assume were still trying to do if possible? if not mb for actually doing nothing then lol)
+    
 }
