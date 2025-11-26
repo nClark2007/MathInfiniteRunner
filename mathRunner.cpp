@@ -2,18 +2,8 @@
 #include <cstdlib> //for random numbers in the games
 #include <ctime> //for srand for true randomization
 
-
 using namespace std;
 
-//global functions for the interactive games
-void addition_start(char ask);
-void subtraction_start(char ask);
-void multiplication_start(char ask);
-void division_start(char ask);
-void addition_game(int gameMode, char ask);
-void subtraction_game(int gameMode, char ask);
-void multiplication_game(int gameMode, char ask);
-void division_game(int gameMode, char ask);
 #include "./addGameFunction.cpp"  // inclusion of separate files for game and start functions
 #include "./subGameFunction.cpp"
 #include "./multGameFunction.cpp"
@@ -24,6 +14,7 @@ char play; // Globalizing play variable to quit program
 int main() {
     srand(time(NULL));
     int choice;
+    int gameMode;
     cout << "\n---WELCOME TO MATH INFINITE RUNNER---\n";
     cout << "-------------------------------------\n";
     cout << "   Would you like to play? (y/n) ";
@@ -41,19 +32,31 @@ int main() {
             switch (choice) {
                 case 1:
                     cout << "YOU HAVE CHOSEN TO PLAY THE ADDITION GAME!!";
-                    addition_start(play);
+                    cout << "Choose your game mode!\n 1. Demo \n 2. Infinite Easy \n 3. Infinite Challenge \n";
+                    cout << "Your choice (1-3): ";
+                    cin >> gameMode;
+                    additionGameFunction(gameMode, continuePlay);
                     break;
                 case 2:
                     cout << "YOU HAVE CHOSEN TO PLAY THE SUBTRACTION GAME!!";
-                    subtraction_start(play);
+                    cout << "Choose your game mode!\n 1. Demo \n 2. Infinite Easy \n 3. Infinite Challenge \n";
+                    cout << "Your choice (1-3): ";
+                    cin >> gameMode;
+                    subtractionGameFunction(gameMode, continuePlay);
                     break;
                 case 3:
                     cout << "YOU HAVE CHOSEN TO PLAY THE MULTIPLICATION GAME!!";
-                    multiplication_start(play);
+                    cout << "Choose your game mode!\n 1. Demo \n 2. Infinite Easy \n 3. Infinite Challenge \n";
+                    cout << "Your choice (1-3): ";
+                    cin >> gameMode;
+                    multiplicationGameFunction(gameMode, continuePlay);
                     break;
                 case 4:
                     cout << "YOU HAVE CHOSEN TO PLAY THE DIVISION GAME!!";
-                    division_start(play);
+                    cout << "Choose your game mode!\n 1. Demo \n 2. Infinite Easy \n 3. Infinite Challenge \n";
+                    cout << "Your choice (1-3): ";
+                    cin >> gameMode;
+                    divisionGameFunction(gameMode, continuePlay);
                     break;
                 default:
                     cout << "Please enter a valid choice\n";
@@ -69,149 +72,8 @@ int main() {
     return 0;
 }
 
-//choose game mode for addition
-void addition_start(char ask) {
-    int gameMode;
-    cout << "\n Choose your game mode!! \n";
-    cout << "   1. Beginner \n   2. Easy \n   3. Normal \n   4. Hard \n";
-    cout << "   Your choice (1-4): ";
-    cin >> gameMode;
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(100, '\n');
-    }
-    if (gameMode == 1 || gameMode == 2 || gameMode == 3 || gameMode == 4) {
-       addition_game(gameMode, ask);
-    } else {
-        cout << "Please enter a valid choice\n";
-        addition_start(ask);
-    }
-}
-//actual game for addition
-void addition_game(int gameMode, char ask) {
-    int points = 0;
-    if (gameMode == 1) { //beginner game mode
-        cout << "Game Mode: Beginner!!";
-        cout << "Ready... \nSet... \nGO!!! \n";
-        for (int i = 1; i <= 10; i++) {
-            int x = rand() % 10 + 1;
-            int y = rand() % 10 + 1;
-            int answer = x + y;
-            int inputAnswer = 0;
-            cout << "Question " << i << " : " << x << " + " << y << " = ";
-            cin >> inputAnswer;
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(100, '\n');
-            }
-            if (inputAnswer == answer) {
-                cout << "CORRECT!! \nNext question!\n";
-                points++;
-            } else {
-                cout << "WRONG!! \nNext question!\n";
-            }
-        }
-        cout << "You finished with " << points << "/10 points!! \n";
-    }
-    else if (gameMode == 2) { //easy game mode
-        cout << "Game Mode: Easy!!";
-        cout << "Ready... \nSet... \nGO!!! \n";
-        for (int i = 1; i <= 15; i++) {
-            int x = rand() % 20 + 1;
-            int y = rand() % 20 + 1;
-            int answer = x + y;
-            int inputAnswer = 0;
-            cout << "Question " << i << " : " << x << " + " << y << " = ";
-            cin >> inputAnswer;
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(100, '\n');
-            }
-            if (inputAnswer == answer) {
-                cout << "\nCORRECT!! \nNext question!\n";
-                points += 2;
-            } else {
-                cout << "\nWRONG!! \nNext question!\n";
-                cin.clear();
-                cin.ignore(100, '\n');
-            }
-        }
-        cout << "You finished with " << points << "/30 points!! \n";
-    }
-    else if (gameMode == 3) { //normal game mode
-        cout << "Game Mode: Normal!!";
-        cout << "Ready... \nSet... \nGO!!! \n";
-        for (int i = 1; i <= 20; i++) {
-            int x = rand() % 100 + 1;
-            int y = rand() % 100 + 1;
-            int answer = x + y;
-            int inputAnswer = 0;
-            cout << "Question " << i << " : " << x << " + " << y << " = ";
-            cin >> inputAnswer;
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(100, '\n');
-            }
-            if (inputAnswer == answer) {
-                cout << "\nCORRECT!! \nNext question!";
-                points += 3;
-            } else {
-                cout << "\nWRONG!! \nNext question!";
-            }
-        }
-        cout << "You finished with " << points << "/60 points!! \n";
-    }
-    else if (gameMode == 4) { //hard game mode
-        cout << "Game Mode: Hard!!";
-        cout << "Ready... \nSet... \nGO!!! \n";
-        for (int i = 1; i <= 10; i++) {
-            int x = rand() % 1000 + 1;
-            int y = rand() % 1000 + 1;
-            int answer = x + y;
-            int inputAnswer = 0;
-            cout << "Question " << i << " : " << x << " + " << y << " = ";
-            cin >> inputAnswer;
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(100, '\n');
-            }
-            if (inputAnswer == answer) {
-                cout << "\nCORRECT!! \nNext question!";
-                points += 10;
-            } else {
-                cout << "\nWRONG!! \nNext question!";
-            }
-        }
-        cout << "You finished with " << points << "/100 points!! \n";
-    }
-    cout << "Would you like to play again? (y/n)";
-    bool validAsk = false;
-    while (validAsk == false ) {
-        cin >> ask;
-        if (tolower(ask) == 'n' || tolower(ask) == 'y') {
-            validAsk = true;
-        } else {
-            cout << "Please enter a valid choice\n";
-            cout << "Would you like to play again? (y/n)";
-            cin.clear();
-            cin.ignore(100, '\n');
-            cin >> ask;
-        }
-    }
-    play = ask;
-}
-//choose game mode for subtraction
-void subtraction_start(char ask) {
-
-}
-//choose game mode for multiplication
-void multiplication_start(char ask) {
-
-}
-//choose game mode for division
-void division_start(char ask) {
-
 // cant we very easily combine this into one function or am i thinking wrong? also, not meaning for it to look as if im doing nothing, 
 // im trying to figure out how in the world to do the actual infinite running game part of this (which i assume were still trying to do if possible? if not mb for actually doing nothing then lol)
-    
-}
+// we can make the choosing game and game mode into one function but it would become too long and too messy if we put every game into one function
+// for the infinite part I was going to try so make it so the game keeps running until the player gets something wrong, like having just a 10 question demo and an actually infinite game
+
