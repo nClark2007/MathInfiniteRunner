@@ -1,0 +1,227 @@
+#include <iostream>
+using namespace std;
+
+// starter code made by Nat Clark on 11/21/25
+//
+// Additions made by Kell Dacus on 11/22/25.
+//
+// changes done by Nat Clark on 11/26/25.
+//
+// changes done by Zack Pope on 11/28/25
+// didnt mean to overstep and rewrite all of it into one but i genuinely couldnt run it the other way and this way works once i changed stuff around, exiting works, havent found any bugs, no clue what else we want added
+
+char play; // Globalizing play variable
+int choice = 0;
+bool continuePlay = false;
+
+void GameFunction(int mode, char play) {
+    play = 'y';
+    int answer= 0;
+    while (tolower(play) == 'y') {
+        int points = 0;
+        bool correct = true;
+        if (mode == 1) { //demo mode
+            cout << "Game Mode: Demo!!";
+            cout << "\nReady... \nSet... \nGO!!! \n";
+            for (int i = 1; i <= 10; i++) {
+
+                int x = rand() % 10 + 1;
+                int y = rand() % 10 + 1;
+                if (choice == 1) {
+                    answer = x + y;
+                    cout << x << " + " << y << " = ";
+                }
+                if (choice == 2) {
+                    answer = x - y;
+                    cout << x << " - " << y << " = ";
+                }
+                if (choice == 3) {
+                    answer = x * y;
+                    cout << x << " * " << y << " = ";
+                }
+                if (choice == 4) {
+                    answer = x / y;
+                    cout << x << " / " << y << " = ";
+                }
+                int inputAnswer = 0;
+
+                cin >> inputAnswer;
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore(100, '\n');
+                }
+                if (inputAnswer == answer) {
+                    cout << "CORRECT!! Next question!\n";
+                    points++;
+                } else {
+                    cout << "WRONG!! Next question!\n";
+                }
+            }
+            cout << "You finished with " << points << "/10 points!! \n";
+        }
+        if (mode == 2) {
+            cout << "Game Mode: Infinite Easy!!";
+            cout << "\nReady... \nSet... \nGO!!! \n";
+            do {
+
+                int x = rand() % 10 + 1;
+                int y = rand() % 10 + 1;
+                if (choice == 1) {
+                    answer = x + y;
+                    cout << x << " + " << y << " = ";
+                }
+                if (choice == 2) {
+                    answer = x - y;
+                    cout << x << " - " << y << " = ";
+                }
+                if (choice == 3) {
+                    answer = x * y;
+                    cout << x << " * " << y << " = ";
+                }
+                if (choice == 4) {
+                    answer = x / y;
+                    cout << x << " / " << y << " = ";
+                }
+                int inputAnswer = 0;
+
+                cin >> inputAnswer;
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore(100, '\n');
+                }
+                if (inputAnswer == answer) {
+                    correct = true;
+                    cout << "CORRECT!! Next question!\n";
+                    points++;
+                } else {
+                    correct = false;
+                    cout << "WRONG!! \n\n";
+                }
+            } while (correct == true);
+            cout << "You finished with " << points << " points!! \n";
+        }
+        if (mode == 3) {
+            cout << "Game Mode: Infinite Challenge!!";
+            cout << "\nReady... \nSet... \nGO!!! \n";
+            do {
+                int x = rand() % 100 + 1;
+                int y = rand() % 100 + 1;
+                if (choice == 1) {
+                    answer = x + y;
+                    cout << x << " + " << y << " = ";
+                }
+                if (choice == 2) {
+                    answer = x - y;
+                    cout << x << " - " << y << " = ";
+                }
+                if (choice == 3) {
+                    answer = x * y;
+                    cout << x << " * " << y << " = ";
+                }
+                if (choice == 4) {
+                    answer = x / y;
+                    cout << x << " / " << y << " = ";
+                }
+                int inputAnswer = 0;
+
+                cin >> inputAnswer;
+
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore(100, '\n');
+                }
+                if (inputAnswer == answer) {
+                    correct = true;
+                    cout << "CORRECT!! Next question!\n";
+                    points++;
+                } else {
+                    correct = false;
+                    cout << "WRONG!! \n\n";
+                }
+            } while (correct == true);
+            cout << "You finished with " << points << " points!! \n";
+        }
+
+
+        cout << "Would you like to play again? (y/n) ";
+        while (tolower(play) != 'y'|| tolower(play) != 'n') {
+            cin >> play;
+
+            if (tolower(play) == 'y') {
+                continuePlay = true;
+                GameFunction(mode, play);
+
+            } if (tolower(play) == 'n') {
+                continuePlay = false;
+                cout << "\nTHANK YOU FOR PLAYING MATH INFINITE RUNNER\n";
+                cout << "PLAY AGAIN ANYTIME!!";
+                exit(0);
+
+            } else cout << "Please enter a valid choice\n";
+        }
+    }
+}
+
+
+
+int main() {
+
+
+    int gameMode;
+    cout << "\n---WELCOME TO MATH INFINITE RUNNER---\n";
+    cout << "-------------------------------------\n";
+    cout << "   Would you like to play? (y/n) ";
+
+     while (continuePlay == false) { // Input handling
+        cin >> play;
+        if (tolower(play) == 'y' || play == 'n') {
+            continuePlay = true;
+        } else cout << "Please enter a valid choice\n";
+    }
+        while (tolower(play) == 'y') {
+            cout << "   1. Addition \n   2. Subtraction \n   3. Multiplication \n   4. Division \n";
+            cout << "   Your choice (1-4): ";
+            cin >> choice;
+            switch (choice) {
+                case 1:
+                    cout << "YOU HAVE CHOSEN TO PLAY THE ADDITION GAME!!";
+                    cout << "Choose your game mode!\n 1. Demo \n 2. Infinite Easy \n 3. Infinite Challenge \n";
+                    cout << "Your choice (1-3): ";
+                    cin >> gameMode;
+                    GameFunction(gameMode, continuePlay);
+                    break;
+                case 2:
+                    cout << "YOU HAVE CHOSEN TO PLAY THE SUBTRACTION GAME!!";
+                    cout << "Choose your game mode!\n 1. Demo \n 2. Infinite Easy \n 3. Infinite Challenge \n";
+                    cout << "Your choice (1-3): ";
+                    cin >> gameMode;
+                    GameFunction(gameMode, continuePlay);
+                    break;
+                case 3:
+                    cout << "YOU HAVE CHOSEN TO PLAY THE MULTIPLICATION GAME!!";
+                    cout << "Choose your game mode!\n 1. Demo \n 2. Infinite Easy \n 3. Infinite Challenge \n";
+                    cout << "Your choice (1-3): ";
+                    cin >> gameMode;
+                    GameFunction(gameMode, continuePlay);
+                    break;
+                case 4:
+                    cout << "YOU HAVE CHOSEN TO PLAY THE DIVISION GAME!!";
+                    cout << "Choose your game mode!\n 1. Demo \n 2. Infinite Easy \n 3. Infinite Challenge \n";
+                    cout << "Your choice (1-3): ";
+                    cin >> gameMode;
+                    GameFunction(gameMode, continuePlay);
+                    break;
+                default:
+                    cout << "Please enter a valid choice\n";
+                    if (cin.fail()) {
+                        cin.clear();
+                        cin.ignore(100, '\n');
+                    }
+
+        }
+    }
+        cout << "\nTHANK YOU FOR PLAYING MATH INFINITE RUNNER\n";
+        cout << "PLAY AGAIN ANYTIME!!";
+        return 0; // saying no upon entering program is the only usecase for this lol
+    
+}
