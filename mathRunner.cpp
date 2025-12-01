@@ -81,12 +81,44 @@ int main() {
             }
 }
     cout << "\nTHANK YOU FOR PLAYING MATH INFINITE RUNNER\n";
-    cout << "PLAY AGAIN ANYTIME!!";
+    cout << "PLAY AGAIN ANYTIME!!" << endl;
+    cout << "\n-------------------------------------\n";
+    cout << "             LEADERBOARD  ";
+    cout << "\n-------------------------------------\n";
     //Instantiating file in case it doesn't exist yet
     ofstream outLeaderboard;
     outLeaderboard.open("..//leaderboard.txt",ios::app);
-    outLeaderboard << sessionHighScore << " points scored by: " << name << "!" << endl;
+    outLeaderboard << endl << sessionHighScore << " points scored by: " << name << "!";
     outLeaderboard.close();
+    // Reading Leaderboard
+    vector<string> leaderBoardNames;
+    vector<int> highScores;
+    int tempScore;
+    string temp;
+    ifstream inLeaderboard;
+
+    inLeaderboard.open("..//leaderboard.txt");
+    while (!inLeaderboard.eof()) {
+        inLeaderboard >> tempScore;
+        highScores.push_back(tempScore);
+        getline(inLeaderboard, temp);
+        leaderBoardNames.push_back(temp);
+    }
+
+    for (int i = 0; i < highScores.size(); i++) {
+        for (int j = i+1; j < highScores.size(); j++) {
+            if (highScores[i] < highScores[j]) {
+                int tempLeadScore = 0;
+                tempLeadScore = highScores[i];
+                highScores[i] = highScores[j];
+                highScores[j] = tempLeadScore;
+            }
+        }
+
+    }
+    for (int i = 0; i < highScores.size(); i++) {
+        cout << highScores[i] << leaderBoardNames[i] << endl;
+    }
 
     return 0;
 }
