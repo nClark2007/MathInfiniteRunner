@@ -112,6 +112,11 @@ int main() {
                 tempLeadScore = highScores[i];
                 highScores[i] = highScores[j];
                 highScores[j] = tempLeadScore;
+                // Names
+                string tempLeadName = " ";
+                tempLeadName = leaderBoardNames[i];
+                leaderBoardNames[i] = leaderBoardNames[j];
+                leaderBoardNames[j] = tempLeadName;
             }
         }
 
