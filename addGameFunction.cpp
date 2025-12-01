@@ -2,7 +2,7 @@
 // Created by Kell Dacus on 11/22/25.
 //
 // starter code by Nat Clark on 11/26/25.
-void additionGameFunction(int mode, char play) {
+void additionGameFunction(int mode, int &compareScore) {
     int points = 0;
     bool correct = true;
     if (mode == 1) { //demo game mode not infinite
@@ -76,6 +76,7 @@ void additionGameFunction(int mode, char play) {
         } while (correct == true);
         cout << "You finished with " << points << " points!! \n";
     }
+    compareScore = points;
     cout << "Would you like to play again? (y/n) ";
     cin >> play;
 }
