@@ -13,6 +13,7 @@ char play; // Globalizing play variable to quit program
 #include "./multGameFunction.cpp"
 #include "./divGameFunction.cpp"
 
+void displayLeaderboard(int highScore, string name);
 //main function
 int main() {
     srand(time(NULL));
@@ -82,17 +83,24 @@ int main() {
 }
     cout << "\nTHANK YOU FOR PLAYING MATH INFINITE RUNNER\n";
     cout << "PLAY AGAIN ANYTIME!!" << endl;
+    displayLeaderboard(sessionHighScore, name);
+
+    return 0;
+}
+
+
+void displayLeaderboard(int highScore, string name) {
     cout << "\n-------------------------------------\n";
     cout << "             LEADERBOARD  ";
     cout << "\n-------------------------------------\n";
     //Instantiating file in case it doesn't exist yet
     ofstream outLeaderboard;
     outLeaderboard.open("..//leaderboard.txt",ios::app);
-    outLeaderboard << endl << sessionHighScore << " points scored by: " << name << "!";
+    outLeaderboard << endl << highScore << " points scored by: " << name << "!";
     outLeaderboard.close();
     // Reading Leaderboard
-    vector<string> leaderBoardNames;
-    vector<int> highScores;
+    vector<string> scoreBoardNames;
+    vector<int> scoreBoard;
     int tempScore;
     string temp;
     ifstream inLeaderboard;
@@ -100,32 +108,30 @@ int main() {
     inLeaderboard.open("..//leaderboard.txt");
     while (!inLeaderboard.eof()) {
         inLeaderboard >> tempScore;
-        highScores.push_back(tempScore);
+        scoreBoard.push_back(tempScore);
         getline(inLeaderboard, temp);
-        leaderBoardNames.push_back(temp);
+        scoreBoardNames.push_back(temp);
     }
 
-    for (int i = 0; i < highScores.size(); i++) {
-        for (int j = i+1; j < highScores.size(); j++) {
-            if (highScores[i] < highScores[j]) {
+    for (int i = 0; i < scoreBoard.size(); i++) {
+        for (int j = i+1; j < scoreBoard.size(); j++) {
+            if (scoreBoard[i] < scoreBoard[j]) {
                 int tempLeadScore = 0;
-                tempLeadScore = highScores[i];
-                highScores[i] = highScores[j];
-                highScores[j] = tempLeadScore;
+                tempLeadScore = scoreBoard[i];
+                scoreBoard[i] = scoreBoard[j];
+                scoreBoard[j] = tempLeadScore;
                 // Names
                 string tempLeadName = " ";
-                tempLeadName = leaderBoardNames[i];
-                leaderBoardNames[i] = leaderBoardNames[j];
-                leaderBoardNames[j] = tempLeadName;
+                tempLeadName = scoreBoardNames[i];
+                scoreBoardNames[i] = scoreBoardNames[j];
+                scoreBoardNames[j] = tempLeadName;
             }
         }
 
     }
-    for (int i = 0; i < highScores.size(); i++) {
-        cout << highScores[i] << leaderBoardNames[i] << endl;
+    for (int i = 0; i < scoreBoard.size(); i++) {
+        cout << scoreBoard[i] << scoreBoardNames[i] << endl;
     }
-
-    return 0;
 }
 
 // cant we very easily combine this into one function or am i thinking wrong? also, not meaning for it to look as if im doing nothing, 
